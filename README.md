@@ -96,3 +96,35 @@ try {
 ```
 
 ---
+
+**Задание 4.**
+
+В БД есть таблица заказов (orders) с полями:
+
+- date - дата оформления заказа
+- customer_name - имя клиента
+- order_price - сумма заказа
+ 
+Напиши sql запросы для выборки:
+1. Запрос, который покажет сколько денег принес каждый отдельно взятый покупатель с группировкой по месяцам.
+2. Запрос, который выведет  имена клиентов, у которых суммарные покупки за весь период превысили 10 тыс. руб. и одновременно никогда не было заказов менее 500 руб.
+
+**Ответы:**
+
+_Запрос 1:_
+
+```sql
+SELECT customer_name, DATE_FORMAT(date, '%Y-%m') AS order_month, SUM(order_price) AS total_amount
+FROM orders
+GROUP BY customer_name, order_month
+ORDER BY order_month, customer_name;
+```
+
+_Запрос 2:_
+
+```sql
+SELECT customer_name
+FROM orders
+GROUP BY customer_name
+HAVING SUM(order_price) > 10000 AND MIN(order_price) >= 500;
+```
