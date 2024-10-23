@@ -168,8 +168,35 @@ LEFT JOIN потенциально может отдать больше стро
 
 (P.S. Не особо понял формулировку задания)
 
+1. Пишем файл для вывода. Назовем dae.php
 ```php
+#!/usr/bin/php
+<?php
 
+// Устанавливаем обработчик сигналов для корректного завершения
+pcntl_signal(SIGTERM, function() {
+    exit;
+});
+
+// Бесконечный цикл
+while (true) {
+    // Выводим фразу "Hello"
+    echo "Hello\n";
+
+    // Задержка на 15 секунд
+    sleep(15);
+}
+?>
+```
+
+2. Даем права на выполнение этому файлу
+```shell
+chmod +x ./dae.php
+```
+
+3. Запускаем
+```shell
+./dae.php &
 ```
 
 ---
@@ -212,4 +239,4 @@ $newPrices = distribute_discount($discount, $prices);
 print_r($newPrices);
 ?>
 
-``
+```
